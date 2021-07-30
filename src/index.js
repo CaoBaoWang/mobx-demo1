@@ -4,9 +4,32 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { makeAutoObservable } from 'mobx'
+import { observer } from "mobx-react";
+import TimerView from "./TimerView";
+
+// 对应用状态进行建模
+class Timer {
+    secondsPassed = 0
+    constructor() {
+        makeAutoObservable(this)
+    }
+    increase() {
+        this.secondsPassed +=1
+    }
+    reset() {
+        this.secondsPassed = 0
+    }
+}
+
+const timer = new Timer()
+
+
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/*<App  />*/}
+      <TimerView timer={timer} />
   </React.StrictMode>,
   document.getElementById('root')
 );
